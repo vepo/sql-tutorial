@@ -1,20 +1,20 @@
 # Acessando o PostgreSQL - Tutorial Completo
 
-## 📋 Overview
+## 📋 Visão Geral
 
 Este tutorial fornece um guia prático para acessar e gerenciar um banco de dados PostgreSQL usando Docker. Você aprenderá:
 
 - Como iniciar um ambiente PostgreSQL com Docker Compose
-- Métodos de conexão ao banco de dados (CLI, GUI)
+- Métodos de conexão ao banco de dados (linha de comando, interface gráfica)
 - Comandos básicos de administração
 - Boas práticas de segurança e gerenciamento
 
-## 🚀 Quick Start
+## 🚀 Início Rápido
 
 ### Pré-requisitos
 
 - [Docker](https://docs.docker.com/desktop/setup/install/linux/) e [Docker Compose](https://docs.docker.com/compose/install/) instalados
-- Pelo menos 2GB de RAM livre
+- Pelo menos 2GB de memória RAM livre
 - Conhecimento básico de linha de comando
 
 ### Iniciar o Ambiente
@@ -33,7 +33,7 @@ docker-compose -f docker/01-acessando-postgres.yaml up -d
 # Verificar status dos containers
 docker-compose -f docker/01-acessando-postgres.yaml ps
 
-# Ver logs do PostgreSQL
+# Ver registros de log do PostgreSQL
 docker-compose -f docker/01-acessando-postgres.yaml logs postgres
 ```
 
@@ -56,7 +56,7 @@ demo_db=> \q                    # Sair
 ### 2. Acesso via pgAdmin (Interface Web)
 
 1. Abra o navegador e acesse: `http://localhost:8080`
-2. Login com as credenciais:
+2. Faça login com as credenciais:
    - Email: `admin@demo.com`
    - Senha: `admin_password`
 3. Adicione um novo servidor:
@@ -130,7 +130,7 @@ JOIN demo.orders o ON u.id = o.user_id
 JOIN demo.products p ON p.id = o.id;
 ```
 
-## 🛠️ Troubleshooting
+## 🛠️ Resolução de Problemas
 
 ### Problemas Comuns e Soluções
 
@@ -149,14 +149,14 @@ ports:
 
 **2. Erro de permissão**
 ```bash
-# Verificar logs do container
+# Verificar registros de log do container
 docker logs postgres_demo
 
-# Reiniciar o container
+# Reiniciar o contêiner
 docker-compose -f docker/01-acessando-postgres.yaml restart postgres
 ```
 
-**3. Container não inicia**
+**3. Contêiner não inicia**
 ```bash
 # Verificar se há containers conflitantes
 docker ps -a | grep postgres
@@ -168,7 +168,7 @@ docker-compose -f docker/01-acessando-postgres.yaml down -v
 docker-compose -f docker/01-acessando-postgres.yaml up -d
 ```
 
-## 📈 Performance e Monitoramento
+## 📈 Desempenho e Monitoramento
 
 ### Comandos de Monitoramento
 
@@ -190,13 +190,13 @@ LIMIT 5;
 ### Backup e Restauração
 
 ```bash
-# Backup do banco
+# Cópia de segurança do banco
 docker exec postgres_demo pg_dump -U demo_user demo_db > backup.sql
 
-# Restaurar backup
+# Restaurar cópia de segurança
 cat backup.sql | docker exec -i postgres_demo psql -U demo_user demo_db
 
-# Backup compactado
+# Cópia de segurança compactada
 docker exec postgres_demo pg_dump -U demo_user demo_db | gzip > backup.sql.gz
 ```
 
@@ -251,13 +251,12 @@ Após dominar o acesso básico, prossiga para:
 ## 🔗 Recursos Úteis
 
 - [Documentação Oficial do PostgreSQL](https://www.postgresql.org/docs/)
-- [pgAdmin Documentation](https://www.pgadmin.org/docs/)
-- [Docker PostgreSQL Hub](https://hub.docker.com/_/postgres)
+- [Documentação do pgAdmin](https://www.pgadmin.org/docs/)
+- [Página do PostgreSQL no Docker Hub](https://hub.docker.com/_/postgres)
 
 ---
 
 **Dica:** Mantenha este tutorial aberto enquanto explora os comandos. Pratique cada seção antes de prosseguir!
-```
 
 ---
 
@@ -285,5 +284,3 @@ docker exec -it postgres_demo psql -U demo_user -d demo_db
 ```bash
 docker-compose -f docker/01-acessando-postgres.yaml down -v
 ```
-
-O tutorial está completo e pronto para uso! Ele inclui exemplos práticos, comandos úteis e cenários de troubleshooting.
